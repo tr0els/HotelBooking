@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using HotelBooking.Core;
 using HotelBooking.UnitTests.Fakes;
 using Xunit;
@@ -17,14 +18,27 @@ namespace HotelBooking.UnitTests
             bookingManager = new BookingManager(bookingRepository, roomRepository);
         }
 
-        [Fact]
-        public void FindAvailableRoom_StartDateNotInTheFuture_ThrowsArgumentException()
+        public static IEnumerable<object[]> GetInvalidStartDates()
+        {
+            var data = new List<object[]>
+            {
+                new object[] { DateTime.Today.AddDays(-1) },
+                new object[] { DateTime.Today },
+                new object[] { DateTime.Today.AddDays(1) },
+            };
+
+            return data;
+        }
+
+        [Theory]
+        [MemberData(nameof(GetInvalidStartDates))]
+        public void FindAvailableRoom_StartDateNotInFutureOrBeforeEndDate_ThrowsArgumentException(DateTime startDate)
         {
             // Arrange
-            DateTime date = DateTime.Today;
+            DateTime endDate = DateTime.Today;
 
             // Act
-            Action act = () => bookingManager.FindAvailableRoom(date, date);
+            Action act = () => bookingManager.FindAvailableRoom(startDate, endDate);
 
             // Assert
             Assert.Throws<ArgumentException>(act);
