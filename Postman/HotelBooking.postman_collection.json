@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "2aa011d3-80de-468e-a0ac-abf1a09b1034",
+		"_postman_id": "278037a0-109d-4291-80cb-e7f82137cb21",
 		"name": "HotelBooking",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18385083"
 	},
 	"item": [
 		{
@@ -12,9 +13,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 201\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -34,12 +33,12 @@
 					"raw": "{\n    \"description\": \"Room 1\"\n}"
 				},
 				"url": {
-					"raw": "https://localhost:5001/rooms",
+					"raw": "https://localhost:{{port}}/rooms",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
-					"port": "5001",
+					"port": "{{port}}",
 					"path": [
 						"rooms"
 					]
@@ -76,12 +75,12 @@
 					"raw": "{\n    \"description\": \"Room 2\"\n}"
 				},
 				"url": {
-					"raw": "https://localhost:5001/rooms",
+					"raw": "https://localhost:{{port}}/rooms",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
-					"port": "5001",
+					"port": "{{port}}",
 					"path": [
 						"rooms"
 					]
@@ -120,12 +119,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:5001/rooms",
+					"raw": "https://localhost:{{port}}/rooms",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
-					"port": "5001",
+					"port": "{{port}}",
 					"path": [
 						"rooms"
 					]
@@ -153,12 +152,12 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:5001/rooms/0",
+					"raw": "https://localhost:{{port}}/rooms/0",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
-					"port": "5001",
+					"port": "{{port}}",
 					"path": [
 						"rooms",
 						"0"
@@ -204,12 +203,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:5001/rooms/2",
+					"raw": "https://localhost:{{port}}/rooms/2",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
-					"port": "5001",
+					"port": "{{port}}",
 					"path": [
 						"rooms",
 						"2"
@@ -217,6 +216,12 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "port",
+			"value": "5001"
 		}
 	]
 }
