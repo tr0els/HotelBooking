@@ -34,7 +34,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"description\": \"Room 1!!\"\n}"
+					"raw": "{\n    \"description\": \"Room 1!\"\n}"
 				},
 				"url": "https://localhost:{{port}}/rooms"
 			},
@@ -46,13 +46,13 @@
 				{
 					"listen": "test",
 					"script": {
+						"id": "e9092a9b-578e-4089-a8c5-aee0043e60cf",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
 							"});"
 						],
-						"type": "text/javascript",
-						"id": "e9092a9b-578e-4089-a8c5-aee0043e60cf"
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -215,7 +215,7 @@
 	],
 	"variable": [
 		{
-			"id": "8e4b7004-807b-4995-83f4-637f01f17e6d",
+			"id": "aacf5189-2925-4ac0-9b37-cc81d4cc4f6d",
 			"key": "port",
 			"value": "5001"
 		}
