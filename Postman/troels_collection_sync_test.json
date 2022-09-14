@@ -34,7 +34,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"description\": \"Room 1!\"\n}"
+					"raw": "{\n    \"description\": \"Room 1!!\"\n}"
 				},
 				"url": "https://localhost:{{port}}/rooms"
 			},
