@@ -37,6 +37,7 @@ namespace HotelBooking.UnitTests
             // Arrange
             DateTime endDate = DateTime.Today;
 
+
             // Act
             Action act = () => bookingManager.FindAvailableRoom(startDate, endDate);
 
