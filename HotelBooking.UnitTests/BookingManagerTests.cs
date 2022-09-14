@@ -56,5 +56,27 @@ namespace HotelBooking.UnitTests
             Assert.NotEqual(-1, roomId);
         }
 
+        public static IEnumerable<object[]> GetLocalData()
+        {
+            var data = new List<object[]>
+            {
+                new object[] { DateTime.Today.AddDays(1), DateTime.Today.AddDays(10) },
+                new object[] { DateTime.Today.AddDays(10), DateTime.Today.AddDays(15) },
+                new object[] { DateTime.Today.AddDays(11), DateTime.Today.AddDays(25) },
+            };
+            return data;
+        }
+
+        [Theory]
+        [MemberData(nameof(GetLocalData))]
+        public void FindAvailableRoom_RoomNotAvailable_RoomIdMinusOne(DateTime startDate, DateTime endDate)
+        {
+            // Arrange
+            // Act
+            int roomId = bookingManager.FindAvailableRoom(startDate, endDate);
+            // Assert
+            Assert.Equal(-1, roomId);
+        }
+
     }
 }
