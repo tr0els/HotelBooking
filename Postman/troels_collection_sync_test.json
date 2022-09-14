@@ -11,15 +11,15 @@
 				{
 					"listen": "test",
 					"script": {
+						"id": "ff4016ef-b5ed-4dec-a2e2-04996ec744fa",
 						"exec": [
 							""
 						],
-						"type": "text/javascript",
-						"id": "ff4016ef-b5ed-4dec-a2e2-04996ec744fa"
+						"type": "text/javascript"
 					}
 				}
 			],
-			"_postman_id": "a972c807-5060-42e0-a006-18ee1fd4d19f",
+			"id": "a972c807-5060-42e0-a006-18ee1fd4d19f",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -34,8 +34,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"description\": \"Room 1\"\n}",
-					"options": {}
+					"raw": "{\n    \"description\": \"Room 1!\"\n}"
 				},
 				"url": "https://localhost:{{port}}/rooms"
 			},
@@ -57,7 +56,7 @@
 					}
 				}
 			],
-			"_postman_id": "e82b1663-ce49-4f88-9109-3494ae66cf9c",
+			"id": "e82b1663-ce49-4f88-9109-3494ae66cf9c",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -72,8 +71,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"description\": \"Room 2\"\n}",
-					"options": {}
+					"raw": "{\n    \"description\": \"Room 2\"\n}"
 				},
 				"url": "https://localhost:{{port}}/rooms"
 			},
@@ -107,7 +105,7 @@
 					}
 				}
 			],
-			"_postman_id": "5380599a-f72f-4ec3-89ec-0de0ad162772",
+			"id": "5380599a-f72f-4ec3-89ec-0de0ad162772",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -135,7 +133,7 @@
 					}
 				}
 			],
-			"_postman_id": "1cab5841-912e-47ee-b5d9-1d1ecd3416cb",
+			"id": "1cab5841-912e-47ee-b5d9-1d1ecd3416cb",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -181,7 +179,7 @@
 					}
 				}
 			],
-			"_postman_id": "6e92d4c8-9e15-4ad4-94f0-02e1fc084ae9",
+			"id": "6e92d4c8-9e15-4ad4-94f0-02e1fc084ae9",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -217,10 +215,9 @@
 	],
 	"variable": [
 		{
-			"id": "4ca99585-7b8d-4d2e-abb0-a0fc712b4a09",
+			"id": "8e4b7004-807b-4995-83f4-637f01f17e6d",
 			"key": "port",
-			"value": "5001",
-			"type": "string"
+			"value": "5001"
 		}
 	]
 }
