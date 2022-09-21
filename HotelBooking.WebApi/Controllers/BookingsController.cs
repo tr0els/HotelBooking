@@ -51,7 +51,16 @@ namespace HotelBooking.WebApi.Controllers
                 return BadRequest();
             }
 
-            bool created = bookingManager.CreateBooking(booking);
+            bool created;
+
+            try
+            {
+                created = bookingManager.CreateBooking(booking);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
             if (created)
             {
