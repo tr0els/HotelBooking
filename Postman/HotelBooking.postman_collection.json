@@ -245,12 +245,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:5000/Bookings",
+					"raw": "https://localhost:{{port}}/Bookings",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
-					"port": "5000",
+					"port": "{{port}}",
 					"path": [
 						"Bookings"
 					]
@@ -351,12 +351,12 @@
 					}
 				},
 				"url": {
-					"raw": "https://localhost:5000/Bookings/1",
+					"raw": "https://localhost:{{port}}/Bookings/1",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
-					"port": "5000",
+					"port": "{{port}}",
 					"path": [
 						"Bookings",
 						"1"
