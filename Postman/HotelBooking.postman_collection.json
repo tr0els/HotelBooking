@@ -218,6 +218,147 @@
 			"response": []
 		},
 		{
+			"name": "Customers",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:{{port}}/Bookings",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"Bookings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customers - 1",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"John Smiths\",\r\n    \"email\": \"js@gmails.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:{{port}}/Customers",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"Customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customers - 2",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Jane Doe\",\r\n    \"email\": \"jd@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:{{port}}/Customers",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"Customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Bookings",
 			"event": [
 				{
@@ -259,7 +400,7 @@
 			"response": []
 		},
 		{
-			"name": "Bookings 1",
+			"name": "Bookings - 1",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -268,6 +409,61 @@
 							"const moment = require('moment');\r",
 							"let startDate = moment().add(20, 'days').format();\r",
 							"let endDate = moment().add(30, 'days').format();\r",
+							"pm.environment.set(\"startDate\", startDate);\r",
+							"pm.environment.set(\"endDate\", endDate);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"startDate\": \"{{startDate}}\",\r\n    \"endDate\": \"{{endDate}}\",\r\n    \"customerId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:{{port}}/Bookings",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"Bookings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bookings - 2",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const moment = require('moment');\r",
+							"let startDate = moment().format();\r",
+							"let endDate = moment().add(14, 'days').format();\r",
 							"pm.environment.set(\"startDate\", startDate);\r",
 							"pm.environment.set(\"endDate\", endDate);\r",
 							""

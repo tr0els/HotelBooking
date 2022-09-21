@@ -16,7 +16,8 @@ namespace HotelBooking.Infrastructure.Repositories
 
         public void Add(Customer entity)
         {
-            throw new NotImplementedException();
+            db.Customer.Add(entity);
+            db.SaveChanges();
         }
 
         public void Edit(Customer entity)
@@ -26,7 +27,9 @@ namespace HotelBooking.Infrastructure.Repositories
 
         public Customer Get(int id)
         {
-            throw new NotImplementedException();
+            // The FirstOrDefault method below returns null
+            // if there is no customer with the specified Id.
+            return db.Customer.FirstOrDefault(r => r.Id == id);
         }
 
         public IEnumerable<Customer> GetAll()
@@ -36,7 +39,11 @@ namespace HotelBooking.Infrastructure.Repositories
 
         public void Remove(int id)
         {
-            throw new NotImplementedException();
+            // The Single method below throws an InvalidOperationException
+            // if there is not exactly one customer with the specified Id.
+            var customer = db.Customer.Single(r => r.Id == id);
+            db.Customer.Remove(customer);
+            db.SaveChanges();
         }
     }
 }
