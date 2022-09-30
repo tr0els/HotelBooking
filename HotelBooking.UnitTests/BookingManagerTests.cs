@@ -12,12 +12,14 @@ namespace HotelBooking.UnitTests
     {
         private IBookingManager bookingManager;
         private Mock<IRepository<Booking>> fakeBookingRepository;
-        private Mock<IRepository<Room>> fakeRoomRepository;        
+        private Mock<IRepository<Room>> fakeRoomRepository;
+        DateTime start;
+        DateTime end;
 
         public BookingManagerTests(){
             #region fakeBookingRepository Setup
-            DateTime start = DateTime.Today.AddDays(10);
-            DateTime end = DateTime.Today.AddDays(20);
+            start = DateTime.Today.AddDays(10);
+            end = DateTime.Today.AddDays(20);
 
             List<Booking> bookings = new List<Booking>
             {
@@ -83,6 +85,36 @@ namespace HotelBooking.UnitTests
             int roomId = bookingManager.FindAvailableRoom(startDate, endDate);
             // Assert
             Assert.Equal(-1, roomId);
+            fakeBookingRepository.Verify(x => x.GetAll(), Times.Once);
+            fakeRoomRepository.Verify(x => x.GetAll(), Times.Once);
+        }
+
+        [Fact]
+        public void GetFullyOccupiedDates_StartLaterThanEndDate_ThrowsArgumentException()
+        {
+            // Arrange
+            DateTime startDate = DateTime.Today.AddDays(1);
+            DateTime endDate = DateTime.Today;
+
+            // Act
+            Action act = () => bookingManager.GetFullyOccupiedDates(startDate, endDate);
+
+            // Assert            
+            Assert.Throws<ArgumentException>(act);
+            fakeBookingRepository.Verify(x => x.GetAll(), Times.Never);
+            fakeRoomRepository.Verify(x => x.GetAll(), Times.Never);
+        }
+
+        [Theory]
+        [MemberData(nameof(TestDataGenerator.GetPeriodsAndFullyOccupiedDates), 
+            MemberType = typeof(TestDataGenerator))]
+        public void GetFullyOccupiedDates_CheckPeriod_ReturnCorrectDates(DateTime startDate, DateTime endDate, List<DateTime> correctDates)
+        {
+            // Act
+            var actualOccupiedDates = bookingManager.GetFullyOccupiedDates(startDate, endDate);
+
+            // Assert
+            Assert.Equal(correctDates, actualOccupiedDates);
             fakeBookingRepository.Verify(x => x.GetAll(), Times.Once);
             fakeRoomRepository.Verify(x => x.GetAll(), Times.Once);
         }

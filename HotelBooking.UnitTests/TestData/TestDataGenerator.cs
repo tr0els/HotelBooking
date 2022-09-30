@@ -30,5 +30,33 @@ namespace HotelBooking.UnitTests.TestData
             };
             return data;
         }
+
+        public static IEnumerable<object[]> GetPeriodsAndFullyOccupiedDates()
+        {
+            var data = new List<object[]>
+            {
+                // Three elements: Start date, end date and list of fully occupied dates
+                new object[] { DateTime.Today.AddDays(10), DateTime.Today.AddDays(20), GeneratePeriod(10, 20) },
+                new object[] { DateTime.Today.AddDays(11), DateTime.Today.AddDays(19), GeneratePeriod(11, 19) },
+                new object[] { DateTime.Today.AddDays(9), DateTime.Today.AddDays(11), GeneratePeriod(10, 11) },
+                new object[] { DateTime.Today.AddDays(19), DateTime.Today.AddDays(21), GeneratePeriod(19, 20) },
+                new object[] { DateTime.Today.AddDays(8), DateTime.Today.AddDays(9), new List<DateTime>() },
+                new object[] { DateTime.Today.AddDays(21), DateTime.Today.AddDays(22), new List<DateTime>() }
+            };
+
+            return data;
+        }
+
+        private static List<DateTime> GeneratePeriod(int start, int end)
+        {
+            List<DateTime> period = new List<DateTime>();
+
+            for (int i = start; i <= end; i++)
+            {
+                period.Add(DateTime.Today.AddDays(i));
+            }
+
+            return period;
+        }
     }
 }
