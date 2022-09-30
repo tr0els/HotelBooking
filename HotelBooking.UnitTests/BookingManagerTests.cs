@@ -13,13 +13,11 @@ namespace HotelBooking.UnitTests
         private IBookingManager bookingManager;
         private Mock<IRepository<Booking>> fakeBookingRepository;
         private Mock<IRepository<Room>> fakeRoomRepository;
-        DateTime start;
-        DateTime end;
 
         public BookingManagerTests(){
             #region fakeBookingRepository Setup
-            start = DateTime.Today.AddDays(10);
-            end = DateTime.Today.AddDays(20);
+            DateTime start = DateTime.Today.AddDays(10);
+            DateTime end = DateTime.Today.AddDays(20);
 
             List<Booking> bookings = new List<Booking>
             {
@@ -29,6 +27,7 @@ namespace HotelBooking.UnitTests
 
             fakeBookingRepository = new Mock<IRepository<Booking>>();
             fakeBookingRepository.Setup(x => x.GetAll()).Returns(bookings);
+            fakeBookingRepository.Setup(x => x.Add(It.IsAny<Booking>())).Verifiable();
             #endregion
 
             #region fakeRoomRepository Setup
@@ -117,6 +116,40 @@ namespace HotelBooking.UnitTests
             Assert.Equal(correctDates, actualOccupiedDates);
             fakeBookingRepository.Verify(x => x.GetAll(), Times.Once);
             fakeRoomRepository.Verify(x => x.GetAll(), Times.Once);
+        }
+
+        [Theory]
+        [MemberData(nameof(TestDataGenerator.GetValidBookings), MemberType = typeof(TestDataGenerator))]
+        public void CreateBooking_AvailableRoom_ReturnTrue(Booking booking)
+        {
+            // Arrange
+            var expected = true;
+
+            // Act
+            var result = bookingManager.CreateBooking(booking);
+
+            // Assert
+            Assert.Equal(expected, result);
+            fakeBookingRepository.Verify(x => x.Add(It.Is<Booking>(b => 
+                b.IsActive == true 
+                && b.StartDate == booking.StartDate 
+                && b.EndDate == booking.EndDate)));
+        }
+
+        [Theory]
+        [MemberData(nameof(TestDataGenerator.GetInvalidBookingPeriods), MemberType = typeof(TestDataGenerator))]
+        public void CreateBooking_NoAvailableRoom_ReturnFalse(DateTime startDate, DateTime endDate)
+        {
+            // Arrange
+            var booking = new Booking { StartDate = startDate, EndDate = endDate };
+            var expected = false;
+
+            // Act
+            var result = bookingManager.CreateBooking(booking);
+
+            // Assert
+            Assert.Equal(expected, result);
+            fakeBookingRepository.Verify(x => x.Add(It.IsAny<Booking>()), Times.Never);
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HotelBooking.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,11 +32,22 @@ namespace HotelBooking.UnitTests.TestData
             return data;
         }
 
+        public static IEnumerable<object[]> GetValidBookings()
+        {
+            var data = new List<object[]>
+            {
+                new object[] { new Booking { StartDate = DateTime.Today.AddDays(1), EndDate = DateTime.Today.AddDays(9)} },
+                new object[] { new Booking { StartDate = DateTime.Today.AddDays(5), EndDate = DateTime.Today.AddDays(6)} }
+            };
+
+            return data;
+        }
+
         public static IEnumerable<object[]> GetPeriodsAndFullyOccupiedDates()
         {
             var data = new List<object[]>
             {
-                // Three elements: Start date, end date and list of fully occupied dates
+                // Three elements: Start date, end date and list of dates we expect to be fully occupied in between
                 new object[] { DateTime.Today.AddDays(10), DateTime.Today.AddDays(20), GeneratePeriod(10, 20) },
                 new object[] { DateTime.Today.AddDays(11), DateTime.Today.AddDays(19), GeneratePeriod(11, 19) },
                 new object[] { DateTime.Today.AddDays(9), DateTime.Today.AddDays(11), GeneratePeriod(10, 11) },
