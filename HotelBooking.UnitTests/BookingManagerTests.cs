@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using HotelBooking.Core;
 using HotelBooking.UnitTests.Fakes;
+using HotelBooking.UnitTests.TestData;
 using Moq;
 using Xunit;
 
@@ -42,25 +43,13 @@ namespace HotelBooking.UnitTests
             bookingManager = new BookingManager(fakeBookingRepository.Object, fakeRoomRepository.Object);
         }
 
-        public static IEnumerable<object[]> GetInvalidStartDates()
-        {
-            var data = new List<object[]>
-            {
-                new object[] { DateTime.Today.AddDays(-1) },
-                new object[] { DateTime.Today },
-                new object[] { DateTime.Today.AddDays(1) },
-            };
-
-            return data;
-        }
-
         [Theory]
-        [MemberData(nameof(GetInvalidStartDates))]
+        [MemberData(nameof(TestDataGenerator.GetInvalidBookingStartDates),
+            MemberType = typeof(TestDataGenerator))]
         public void FindAvailableRoom_StartDateNotInFutureOrBeforeEndDate_ThrowsArgumentException(DateTime startDate)
         {
             // Arrange
             DateTime endDate = DateTime.Today;
-
 
             // Act
             Action act = () => bookingManager.FindAvailableRoom(startDate, endDate);
@@ -84,19 +73,9 @@ namespace HotelBooking.UnitTests
             fakeRoomRepository.Verify(x => x.GetAll(), Times.Once);
         }
 
-        public static IEnumerable<object[]> GetLocalData()
-        {
-            var data = new List<object[]>
-            {
-                new object[] { DateTime.Today.AddDays(1), DateTime.Today.AddDays(10) },
-                new object[] { DateTime.Today.AddDays(10), DateTime.Today.AddDays(15) },
-                new object[] { DateTime.Today.AddDays(11), DateTime.Today.AddDays(25) },
-            };
-            return data;
-        }
-
         [Theory]
-        [MemberData(nameof(GetLocalData))]
+        [MemberData(nameof(TestDataGenerator.GetInvalidBookingPeriods),
+            MemberType = typeof(TestDataGenerator))]
         public void FindAvailableRoom_RoomNotAvailable_RoomIdMinusOne(DateTime startDate, DateTime endDate)
         {
             // Arrange
