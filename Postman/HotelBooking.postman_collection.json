@@ -341,7 +341,24 @@
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
-									"});"
+									"});\r",
+									"\r",
+									"/*\r",
+									"pm.test(\"Response must be valid and have a body\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"*/\r",
+									"\r",
+									"/*\r",
+									"pm.test(\"Returned booking object matches the created\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.startDate).to.eql(pm.environment.get(\"startDate\"));\r",
+									"    pm.expect(jsonData.endDate).to.eql(pm.environment.get(\"endDate\"));\r",
+									"    pm.expect(jsonData.customerId).to.eql(1);\r",
+									"});\r",
+									"*/"
 								],
 								"type": "text/javascript"
 							}
@@ -457,7 +474,7 @@
 					"response": []
 				},
 				{
-					"name": "Update booking by id",
+					"name": "Update booking by id (todo?)",
 					"event": [
 						{
 							"listen": "prerequest",
