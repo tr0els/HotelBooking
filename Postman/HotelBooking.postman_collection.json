@@ -474,7 +474,7 @@
 					"response": []
 				},
 				{
-					"name": "Update booking by id (todo?)",
+					"name": "Update booking by id",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -562,6 +562,616 @@
 							"path": [
 								"bookings",
 								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "tests",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "rooms - Room 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"Room 1\"\n}"
+						},
+						"url": {
+							"raw": "https://localhost:{{port}}/rooms",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rooms - Room 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"Room 2\"\n}"
+						},
+						"url": {
+							"raw": "https://localhost:{{port}}/rooms",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rooms",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is json\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"//pm.test(\"Response length is correct\", function () {",
+									"//    var jsonData = pm.response.json();",
+									"//    pm.expect(jsonData.length).to.eql(2);",
+									"//});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:{{port}}/rooms",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rooms/0",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is json\", function () {",
+									"    pm.response.to.be.badRequest;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:{{port}}/rooms/0",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rooms",
+								"0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rooms/2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is json\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Response has correct room id\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.eql(2);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:{{port}}/rooms/2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rooms",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customers",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:{{port}}/Bookings",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"Bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customers - 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"John Smiths\",\r\n    \"email\": \"js@gmails.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:{{port}}/Customers",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"Customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customers - 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Jane Doe\",\r\n    \"email\": \"jd@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:{{port}}/Customers",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"Customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bookings",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:{{port}}/Bookings",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"Bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bookings - 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const moment = require('moment');\r",
+									"let startDate = moment().add(20, 'days').format();\r",
+									"let endDate = moment().add(30, 'days').format();\r",
+									"pm.environment.set(\"startDate\", startDate);\r",
+									"pm.environment.set(\"endDate\", endDate);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"startDate\": \"{{startDate}}\",\r\n    \"endDate\": \"{{endDate}}\",\r\n    \"customerId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:{{port}}/Bookings",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"Bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bookings - 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const moment = require('moment');\r",
+									"let startDate = moment().format();\r",
+									"let endDate = moment().add(14, 'days').format();\r",
+									"pm.environment.set(\"startDate\", startDate);\r",
+									"pm.environment.set(\"endDate\", endDate);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"startDate\": \"{{startDate}}\",\r\n    \"endDate\": \"{{endDate}}\",\r\n    \"customerId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:{{port}}/Bookings",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"Bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bookings/1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"customerId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:{{port}}/Bookings/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"Bookings",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bookings/2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:{{port}}/Bookings/2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"Bookings",
+								"2"
 							]
 						}
 					},
