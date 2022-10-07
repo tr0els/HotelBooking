@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "5ebb4839-d176-429a-8734-4a7ae69ee904",
+		"_postman_id": "677da436-0154-4326-bc35-416c163148f6",
 		"name": "HotelBooking",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "18385083"
+		"_exporter_id": "2671907"
 	},
 	"item": [
 		{
@@ -573,7 +573,7 @@
 			"name": "tests",
 			"item": [
 				{
-					"name": "rooms - Room 1",
+					"name": "rooms -  Create Room 1",
 					"event": [
 						{
 							"listen": "test",
@@ -613,7 +613,7 @@
 					"response": []
 				},
 				{
-					"name": "rooms - Room 2",
+					"name": "rooms - Create Room 2",
 					"event": [
 						{
 							"listen": "test",
@@ -655,7 +655,7 @@
 					"response": []
 				},
 				{
-					"name": "rooms",
+					"name": "Get All Rooms",
 					"event": [
 						{
 							"listen": "test",
@@ -699,13 +699,13 @@
 					"response": []
 				},
 				{
-					"name": "rooms/0",
+					"name": "rooms/0 - Delete non-existing room",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response is json\", function () {",
+									"pm.test(\"Response is bad request\", function () {",
 									"    pm.response.to.be.badRequest;",
 									"});",
 									""
@@ -733,7 +733,41 @@
 					"response": []
 				},
 				{
-					"name": "rooms/2",
+					"name": "rooms/2 - Delete room 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is no content\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:{{port}}/rooms/2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rooms",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rooms/1 - Get room of id 1",
 					"event": [
 						{
 							"listen": "test",
@@ -749,7 +783,49 @@
 									"",
 									"pm.test(\"Response has correct room id\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.id).to.eql(2);",
+									"    pm.expect(jsonData.id).to.eql(1);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:{{port}}/rooms/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rooms",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rooms/2 - Get room of id 2 Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -784,48 +860,7 @@
 					"response": []
 				},
 				{
-					"name": "Customers",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://localhost:{{port}}/Bookings",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "{{port}}",
-							"path": [
-								"Bookings"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Customers - 1",
+					"name": "Customers 1 - Create Curstomer John",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -875,7 +910,7 @@
 					"response": []
 				},
 				{
-					"name": "Customers - 2",
+					"name": "Customers 2 - Create Customer Jane",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -925,7 +960,7 @@
 					"response": []
 				},
 				{
-					"name": "Bookings",
+					"name": "Customers - Get all Customers",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -952,21 +987,21 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:{{port}}/Bookings",
+							"raw": "https://localhost:{{port}}/Customers",
 							"protocol": "https",
 							"host": [
 								"localhost"
 							],
 							"port": "{{port}}",
 							"path": [
-								"Bookings"
+								"Customers"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Bookings - 1",
+					"name": "Bookings - John, Book 20 days from now, for 10 days.",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -1021,7 +1056,7 @@
 					"response": []
 				},
 				{
-					"name": "Bookings - 2",
+					"name": "Bookings - John, Book 14 days from today",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -1076,7 +1111,158 @@
 					"response": []
 				},
 				{
-					"name": "Bookings/1",
+					"name": "Bookings - John, Book 10 days from now, for 14 days (conflict)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const moment = require('moment');\r",
+									"let startDate = moment().add(10, 'days').format();\r",
+									"let endDate = moment().add(24, 'days').format();\r",
+									"pm.environment.set(\"startDate\", startDate);\r",
+									"pm.environment.set(\"endDate\", endDate);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"startDate\": \"{{startDate}}\",\r\n    \"endDate\": \"{{endDate}}\",\r\n    \"customerId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:{{port}}/Bookings",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"Bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bookings - John Books 29 days from now, for 5 days",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const moment = require('moment');\r",
+									"let startDate = moment().add(29, 'days').format();\r",
+									"let endDate = moment().add(34, 'days').format();\r",
+									"pm.environment.set(\"startDate\", startDate);\r",
+									"pm.environment.set(\"endDate\", endDate);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 409 conflict\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"startDate\": \"{{startDate}}\",\r\n    \"endDate\": \"{{endDate}}\",\r\n    \"customerId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:{{port}}/Bookings",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"Bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bookings - Get All Bookings",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:{{port}}/Bookings",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"Bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bookings/1 - Change Customer to Jane",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -1128,7 +1314,7 @@
 					"response": []
 				},
 				{
-					"name": "Bookings/2",
+					"name": "Bookings/2 - Delete Booking 2",
 					"event": [
 						{
 							"listen": "prerequest",
