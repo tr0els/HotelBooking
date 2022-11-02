@@ -62,7 +62,7 @@ namespace HotelBooking.SpecFlowTests.StepDefinitions
             result = manager.CreateBooking(booking);
         }
 
-        [Then(@"the result should be '(.*)'")]
+        [Then(@"the result should be (.*)")]
         public void ThenTheResultShouldBe(bool validBooking)
         {
             Assert.Equal(validBooking, result);

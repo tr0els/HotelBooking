@@ -85,14 +85,14 @@ namespace HotelBooking.SpecFlowTests.Features
         [Xunit.TraitAttribute("FeatureTitle", "CreateBookingExamples")]
         [Xunit.TraitAttribute("Description", "Enter start date and end date")]
         [Xunit.TraitAttribute("Category", "tag1")]
-        [Xunit.InlineDataAttribute("1", "9", "\'true\'", new string[0])]
-        [Xunit.InlineDataAttribute("21", "30", "\'true\'", new string[0])]
-        [Xunit.InlineDataAttribute("9", "21", "\'false\'", new string[0])]
-        [Xunit.InlineDataAttribute("9", "10", "\'false\'", new string[0])]
-        [Xunit.InlineDataAttribute("9", "20", "\'false\'", new string[0])]
-        [Xunit.InlineDataAttribute("10", "21", "\'false\'", new string[0])]
-        [Xunit.InlineDataAttribute("20", "21", "\'false\'", new string[0])]
-        [Xunit.InlineDataAttribute("10", "20", "\'false\'", new string[0])]
+        [Xunit.InlineDataAttribute("1", "9", "true", new string[0])]
+        [Xunit.InlineDataAttribute("21", "30", "true", new string[0])]
+        [Xunit.InlineDataAttribute("9", "21", "false", new string[0])]
+        [Xunit.InlineDataAttribute("9", "10", "false", new string[0])]
+        [Xunit.InlineDataAttribute("9", "20", "false", new string[0])]
+        [Xunit.InlineDataAttribute("10", "21", "false", new string[0])]
+        [Xunit.InlineDataAttribute("20", "21", "false", new string[0])]
+        [Xunit.InlineDataAttribute("10", "20", "false", new string[0])]
         public virtual void EnterStartDateAndEndDate(string startOffset, string endOffset, string validBooking, string[] exampleTags)
         {
             string[] @__tags = new string[] {

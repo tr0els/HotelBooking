@@ -13,12 +13,12 @@ Scenario Outline: Enter start date and end date
 
 	Examples: 
 	| startOffset | endOffset | validBooking |
-	| 1           | 9         | 'true'       |
-	| 21          | 30        | 'true'       |
-	| 9           | 21        | 'false'      |
-	| 9           | 10        | 'false'      |
-	| 9           | 20        | 'false'      |
-	| 10          | 21        | 'false'      |
-	| 20          | 21        | 'false'      |	
-	| 10          | 20        | 'false'      |
+	| 1           | 9         | true         |
+	| 21          | 30        | true         |
+	| 9           | 21        | false        |
+	| 9           | 10        | false        |
+	| 9           | 20        | false        |
+	| 10          | 21        | false        |
+	| 20          | 21        | false        |	
+	| 10          | 20        | false        |
 	
