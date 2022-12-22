@@ -13,6 +13,29 @@ steps:
 # - script: dotnet build --configuration $(buildConfiguration)
 #  displayName: 'dotnet build $(buildConfiguration)'
 
+# Test
+#- task: DotNetCoreCLI@2
+#  displayName: Testing
+#  inputs:
+#    command: test
+#    projects: '**/*Tests/*.csproj'
+#    arguments: '--configuration $(buildConfiguration)'
+
+# Prepare Analysis Configuration task
+#- task: SonarQubePrepare@5
+#  inputs:
+#    SonarQube: 'YourSonarqubeServerEndpoint'
+#    scannerMode: 'MSBuild'
+#    projectKey: 'YourProjectKey'
+
+# Run Code Analysis task
+#- task: SonarQubeAnalyze@5
+
+# Publish Quality Gate Result task
+#- task: SonarQubePublish@5
+#  inputs:
+#    pollingTimeoutSec: '300'
+
 # Build
 - task: DotNetCoreCLI@2
   displayName: Build
@@ -20,14 +43,6 @@ steps:
     command: build
     projects: '**/*.csproj'
     arguments: '--configuration $(buildConfiguration)' # Update this to match your need
-
-# Test
-- task: DotNetCoreCLI@2
-  displayName: Testing
-  inputs:
-    command: test
-    projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
 
 # Run the Web API in the background
 - task: CmdLine@2
