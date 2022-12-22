@@ -13,20 +13,22 @@ steps:
 # - script: dotnet build --configuration $(buildConfiguration)
 #  displayName: 'dotnet build $(buildConfiguration)'
 
-# Prepare Analysis Configuration task
-#- task: SonarQubePrepare@5
-#  inputs:
-#    SonarQube: 'YourSonarqubeServerEndpoint'
-#    scannerMode: 'MSBuild'
-#    projectKey: 'YourProjectKey'
+# SonarCloud Prepare Analysis Configuration
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'KleinNorre SonarCloud'
+    organization: 'troelz'
+    scannerMode: 'MSBuild'
+    projectKey: 'troelz_HotelBooking'
+    projectName: 'HotelBooking'
 
-# Run Code Analysis task
-#- task: SonarQubeAnalyze@5
+# SonarCloud Run Code Analysis
+- task: SonarCloudAnalyze@1
 
-# Publish Quality Gate Result task
-#- task: SonarQubePublish@5
-#  inputs:
-#    pollingTimeoutSec: '300'
+# SonarCloud Publish Quality Gate Result
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
 
 # Build
 - task: DotNetCoreCLI@2
