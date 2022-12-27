@@ -13,7 +13,6 @@ steps:
 # - script: dotnet build --configuration $(buildConfiguration)
 #  displayName: 'dotnet build $(buildConfiguration)'
 
-# - task: SonarCloudAnalyze@1
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'KleinNorre SonarCloud'
@@ -22,7 +21,8 @@ steps:
     projectKey: 'troelz_HotelBooking'
     projectName: 'HotelBooking'
     extraProperties: |
-      sonar.cs.opencover.reportsPaths='$(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml'
+      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml
+      
 # Build
 - task: DotNetCoreCLI@2
   displayName: Build
@@ -56,7 +56,7 @@ steps:
     reports: $(Agent.TempDirectory)/**/coverage.cobertura.xml
     targetdir: $(Build.SourcesDirectory)/coverlet/reports
 
-# Publish test results
+# Publish code results
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish code coverage'
   inputs:
