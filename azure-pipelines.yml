@@ -40,13 +40,13 @@ steps:
   displayName: Install ReportGenerator tool
 
 - task: DotNetCoreCLI@2
-    displayName: Test
-    inputs:
-      command: test
-      projects: '**\*Test*.csproj'
-      publishTestResults: false
-      arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutput=$(Agent.TempDirectory)/ /p:CoverletOutputFormat=opencover'
-    condition: succeededOrFailed()
+  displayName: Test
+  inputs:
+    command: test
+    projects: '**\*Test*.csproj'
+    publishTestResults: false
+    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutput=$(Agent.TempDirectory)/ /p:CoverletOutputFormat=opencover'
+  condition: succeededOrFailed()
 
 # SonarCloud Run Code Analysis
 - task: SonarCloudAnalyze@1
