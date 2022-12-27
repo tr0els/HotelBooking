@@ -51,18 +51,18 @@ steps:
 #  displayName: Create reports
   
 # Generate report from collected data
-- task: reportgenerator@5
-  inputs:
-    reports: $(Agent.TempDirectory)/**/coverage.cobertura.xml
-    targetdir: $(Build.SourcesDirectory)/coverlet/reports
-    reporttypes: 'HtmlInline_AzurePipelines;Cobertura;SonarQube'
+# - task: reportgenerator@5
+#   inputs:
+#     reports: $(Agent.TempDirectory)/**/coverage.cobertura.xml
+#     targetdir: $(Build.SourcesDirectory)/coverlet/reports
+#     reporttypes: 'HtmlInline_AzurePipelines;Cobertura;SonarQube'
 
 # Publish code results
-- task: PublishCodeCoverageResults@1
-  displayName: 'Publish code coverage'
-  inputs:
-    codeCoverageTool: Cobertura
-    summaryFileLocation: $(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml
+# - task: PublishCodeCoverageResults@1
+#   displayName: 'Publish code coverage'
+#   inputs:
+#     codeCoverageTool: Cobertura
+#     summaryFileLocation: $(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml
 
 # SonarCloud Run Code Analysis
 - task: SonarCloudAnalyze@1
