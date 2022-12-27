@@ -18,12 +18,11 @@ steps:
   inputs:
     SonarCloud: 'KleinNorre SonarCloud'
     organization: 'troelz'
-    scannerMode: CLI
+    scannerMode: 'MSBuild'
     projectKey: 'troelz_HotelBooking'
     projectName: 'HotelBooking'
     extraProperties: |
-      sonar.cs.opencover.reportsPaths='$(Agent.TempDirectory)/coverage.opencover.xml'
-
+      sonar.cs.opencover.reportsPaths='$(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml'
 # Build
 - task: DotNetCoreCLI@2
   displayName: Build
@@ -31,6 +30,15 @@ steps:
     command: build
     projects: '**/*.csproj'
     arguments: '--configuration $(buildConfiguration)' # Update this to match your need
+
+# Test
+- task: DotNetCoreCLI@2
+  displayName: Testing
+  inputs:
+    command: test
+    projects: '**/*Tests/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage"'
+    workingDirectory: $(Build.SourcesDirectory)
     
 - task: DotNetCoreCLI@2
   inputs:
@@ -39,14 +47,15 @@ steps:
     arguments: install --tool-path . dotnet-reportgenerator-globaltool
   displayName: Install ReportGenerator tool
 
-- task: DotNetCoreCLI@2
-  displayName: Test
+- script: ./reportgenerator -reports:$(Agent.TempDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"Cobertura"
+  displayName: Create reports
+  
+# Publish test results
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage'
   inputs:
-    command: test
-    projects: '**\*Test*.csproj'
-    publishTestResults: false
-    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutput=$(Agent.TempDirectory)/ /p:CoverletOutputFormat=opencover'
-  condition: succeededOrFailed()
+    codeCoverageTool: Cobertura
+    summaryFileLocation: $(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml
 
 # SonarCloud Run Code Analysis
 - task: SonarCloudAnalyze@1
