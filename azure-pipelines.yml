@@ -21,7 +21,7 @@ steps:
     projectKey: 'troelz_HotelBooking'
     projectName: 'HotelBooking'
     extraProperties: |
-      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/coverlet/reports/coverage.xml
+      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml
       
 # Build
 - task: DotNetCoreCLI@2
@@ -37,7 +37,7 @@ steps:
   inputs:
     command: test
     projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover' # Collect data using Coverlet DataCollector
+    arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage"' # Collect data using Coverlet DataCollector
     workingDirectory: $(Build.SourcesDirectory)
     
 #- task: DotNetCoreCLI@2
@@ -53,16 +53,16 @@ steps:
 # Generate report from collected data
 - task: reportgenerator@5
   inputs:
-    reports: $(Agent.TempDirectory)/**/coverage.opencover.xml
+    reports: $(Agent.TempDirectory)/**/coverage.cobertura.xml
     targetdir: $(Build.SourcesDirectory)/coverlet/reports
-    # reporttypes: 'HtmlInline_AzurePipelines;Cobertura;SonarQube'
+    reporttypes: 'HtmlInline_AzurePipelines;Cobertura;SonarQube'
 
 # Publish code results
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish code coverage'
   inputs:
-    codeCoverageTool: OpenCover
-    summaryFileLocation: $(Build.SourcesDirectory)/coverlet/reports/coverage.xml
+    codeCoverageTool: Cobertura
+    summaryFileLocation: $(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml
 
 # SonarCloud Run Code Analysis
 - task: SonarCloudAnalyze@1
