@@ -40,7 +40,7 @@ steps:
   displayName: Install ReportGenerator tool
 
 - task: DotNetCoreCLI@2
-    displayName: Test .NET
+    displayName: Test
     inputs:
       command: test
       projects: '**\*Test*.csproj'
