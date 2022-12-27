@@ -42,7 +42,7 @@ steps:
     
 # Merge test results    
 - task: reportgenerator@4
-    displayName: "Merge code coverage reports"
+    displayName: Merge code coverage reports
     inputs:
       reports: "**/coverage.cobertura.xml"
       targetdir: "$(Build.ArtifactStagingDirectory)/coverlet"
@@ -51,7 +51,7 @@ steps:
 
 # Publish test results
 - task: PublishCodeCoverageResults@1
-  displayName: "Publish code coverage results"
+  displayName: Publish code coverage results
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: "$(Build.ArtifactStagingDirectory)/coverlet/Cobertura.xml"
