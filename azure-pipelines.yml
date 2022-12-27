@@ -21,7 +21,7 @@ steps:
     projectKey: 'troelz_HotelBooking'
     projectName: 'HotelBooking'
     extraProperties: |
-      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/coverlet/reports/SonarQube.xml
+      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml
       
 # Build
 - task: DotNetCoreCLI@2
@@ -37,7 +37,7 @@ steps:
   inputs:
     command: test
     projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage"' # Collect data using Coverlet DataCollector
+    arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura,opencover' # Collect data using Coverlet DataCollector
     workingDirectory: $(Build.SourcesDirectory)
     
 #- task: DotNetCoreCLI@2
