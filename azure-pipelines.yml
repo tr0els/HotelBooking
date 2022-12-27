@@ -22,6 +22,7 @@ steps:
     projectName: 'HotelBooking'
     extraProperties: |
       sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml
+      sonar.verbose=true
       
 # Build
 - task: DotNetCoreCLI@2
