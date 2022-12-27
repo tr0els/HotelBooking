@@ -39,15 +39,22 @@ steps:
     command: test
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage"'
-    
-# Merge test results    
+
+# Merge report files
 - task: reportgenerator@4
-    displayName: Merge code coverage reports
-    inputs:
-      reports: "**/coverage.cobertura.xml"
-      targetdir: "$(Build.ArtifactStagingDirectory)/coverlet"
-      reporttypes: "Cobertura"
-      verbosity: "Verbose"
+  displayName: "Merge code coverage reports"
+  inputs:
+    reports: "**/coverage.cobertura.xml"
+    targetdir: "$(Build.ArtifactStagingDirectory)/coverlet"
+    reporttypes: "Cobertura"
+    verbosity: "Verbose"
+    
+# Publish test results
+- task: PublishCodeCoverageResults@1
+  displayName: "Publish code coverage results"
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: "$(Build.ArtifactStagingDirectory)/coverlet/Cobertura.xml"
 
 # Publish test results
 - task: PublishCodeCoverageResults@1
