@@ -33,6 +33,16 @@ namespace HotelBooking.Core
             }
         }
 
+        public void RemoveBooking(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException("Booking id must be a positive integer");
+            }
+
+            bookingRepository.Remove(id);
+        }
+
         public int FindAvailableRoom(DateTime startDate, DateTime endDate)
         {
             if (startDate <= DateTime.Today || startDate > endDate)
