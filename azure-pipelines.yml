@@ -22,7 +22,7 @@ steps:
     projectKey: 'troelz_HotelBooking'
     projectName: 'HotelBooking'
     extraProperties: |
-      sonar.cs.opencover.reportsPaths='$(Agent.TempDirectory)/**/coverage.cobertura.xml'
+      sonar.cs.opencover.reportsPaths='$(Build.ArtifactStagingDirectory)/coverlet/Cobertura.xml'
 
 # Build
 - task: DotNetCoreCLI@2
@@ -38,15 +38,23 @@ steps:
   inputs:
     command: test
     projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura' 
-    publishTestResults: false
+    arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage"'
     
-# Publish test results    
+# Merge test results    
+- task: reportgenerator@4
+    displayName: "Merge code coverage reports"
+    inputs:
+      reports: "**/coverage.cobertura.xml"
+      targetdir: "$(Build.ArtifactStagingDirectory)/coverlet"
+      reporttypes: "Cobertura"
+      verbosity: "Verbose"
+
+# Publish test results
 - task: PublishCodeCoverageResults@1
-  displayName: 'Publish code coverage report'
+  displayName: "Publish code coverage results"
   inputs:
-    codeCoverageTool: 'Cobertura'
-    summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
+    codeCoverageTool: Cobertura
+    summaryFileLocation: "$(Build.ArtifactStagingDirectory)/coverlet/Cobertura.xml"
 
 # SonarCloud Run Code Analysis
 - task: SonarCloudAnalyze@1
