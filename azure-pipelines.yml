@@ -21,7 +21,7 @@ steps:
     projectKey: 'troelz_HotelBooking'
     projectName: 'HotelBooking'
     extraProperties: |
-      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/coverlet/reports/Cobertura.xml
+      sonar.cs.opencover.reportsPaths=$(Agent.TempDirectory)/**/coverage.opencover.xml
       
 # Build
 - task: DotNetCoreCLI@2
